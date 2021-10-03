@@ -1,6 +1,8 @@
 package com.coursera.org.functions;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -11,12 +13,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
 
 import com.coursera.org.base.Base;
+import com.coursera.org.utilities.FileOutput;
 import com.coursera.org.utilities.HighlighterAndScreenshotClass;
 
 public class IdentifyCourses extends Base {
 
 	String parentWindow;
 	HighlighterAndScreenshotClass hs = new HighlighterAndScreenshotClass();
+	FileOutput fo = new FileOutput();
+
+	List<String> c_names = new ArrayList<String>();
+	List<String> c_rating = new ArrayList<String>();
+	List<String> c_time = new ArrayList<String>();
 
 	/******************
 	 * Search For Course
@@ -25,6 +33,7 @@ public class IdentifyCourses extends Base {
 	 * @throws IOException
 	 ***********************/
 	public void searchCourse() throws InterruptedException, IOException {
+		hs.takeScreenshot("Home Page");
 		WebElement search = driver.findElement(By.xpath(
 				"//*[@id=\"rendered-content\"]/div/header/div/div/div/div[1]/div[3]/div/form/div/div/div[1]/div[1]/input"));
 		// Highlight search bar
@@ -62,7 +71,8 @@ public class IdentifyCourses extends Base {
 				.findElement(By.xpath("//*[@id=\"react-select-2--option-0\"]/div/button/label/input"));
 		hs.highlighttElements(findElementByXpath("//*[@id=\"react-select-2--option-0\"]/div/button"));
 		english.click();
-		hs.takeScreenshot("Language");
+		hs.takeScreenshot("Select Language");
+		System.out.println("\nApplied Filters\n===============");
 		System.out.println("English");
 
 	}
@@ -111,18 +121,18 @@ public class IdentifyCourses extends Base {
 				.findElement(By.xpath(
 						"//*[@id=\"main\"]/div/div/div[1]/div/div/div/div/div/div/ul/li[1]/div/div/a/div/div[2]/h2"))
 				.getText();
-		System.out.println(courseName1);
+		System.out.println("\nFirst Course :");
+		System.out.println("Course Name - " + courseName1);
+		c_names.add(0, courseName1);
 		Reporter.log("Course Name - " + courseName1);
-		hs.takeScreenshot("courseName1");
-		System.out.println(courseName1);
 
 		// Extract the rating of the first course
 		String courseRating1 = driver.findElement(By.xpath(
 				"//*[@id=\"main\"]/div/div/div[1]/div/div/div/div/div/div/ul/li[1]/div/div/a/div/div[2]/div[3]/div[1]/div[1]/div/span[1]"))
 				.getText();
 		Reporter.log("Course Rating - " + courseRating1);
-		System.out.println(courseRating1);
-		hs.takeScreenshot("courseRating1");
+		System.out.println("Course Rating - " + courseRating1);
+		c_rating.add(0, courseRating1);
 
 		parentWindow = driver.getWindowHandle();
 		WebElement firstCourse = driver.findElement(
@@ -131,8 +141,6 @@ public class IdentifyCourses extends Base {
 		hs.highlighttElements(firstCourse);
 		firstCourse.click();
 		Thread.sleep(3000);
-		hs.takeScreenshot("firstCourseweb");
-		System.out.println(firstCourse);
 
 		Set<String> handles1 = driver.getWindowHandles();
 
@@ -140,6 +148,7 @@ public class IdentifyCourses extends Base {
 			if (!childWindow1.contentEquals(parentWindow)) {
 				// Navigate to child window
 				driver.switchTo().window(childWindow1);
+				hs.takeScreenshot("FirstCoursePage");
 
 				// Extract the duration of the first course
 				implicitWait(30);
@@ -151,18 +160,14 @@ public class IdentifyCourses extends Base {
 					String courseDuration1 = driver.findElement(By
 							.xpath("//*[@id=\"main\"]/div/div[2]/div/div/div/div[2]/div/div/div[5]/div[2]/div[1]/span"))
 							.getText();
-					System.out.println(courseDuration1);
+					c_time.add(0, courseDuration1);
+					System.out.println("Course Duration - " + courseDuration1);
 					Reporter.log("Course Duration - " + courseDuration1);
-					System.out.println(courseDuration1);
-				} else /*
-						 * if(driver.findElement(By.xpath(
-						 * "/html/body/div[3]/div/div/main/div/div[2]/div/div/div/div[2]/div/div/div[5]/div[2]/div[1]/span"
-						 * )).isDisplayed())
-						 */ {
+				} else {
 					String courseDuration1 = driver.findElement(By
 							.xpath("//*[@id=\"main\"]/div/div[2]/div/div/div/div[2]/div/div/div[5]/div[2]/div[2]/span"))
 							.getText();
-					System.out.println(courseDuration1);
+					System.out.println("Course Duration - " + courseDuration1);
 					Reporter.log("Course Duration - " + courseDuration1);
 				}
 
@@ -188,8 +193,6 @@ public class IdentifyCourses extends Base {
 		hs.highlighttElements(secondCourse);
 		secondCourse.click();
 		Thread.sleep(3000);
-		hs.takeScreenshot("secondcourse");
-		System.out.println(secondCourse);
 		parentWindow = driver.getWindowHandle();
 
 		Reporter.log(" ");
@@ -199,17 +202,18 @@ public class IdentifyCourses extends Base {
 		// Extract the name of the second course
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		Reporter.log("Course Name - " + secondCourse.getText());
-		System.out.println(secondCourse);
+		System.out.println("\nSecond Course : ");
+		System.out.println("Course Name - " + secondCourse.getText());
+		c_names.add(1, secondCourse.getText());
 
 		// Extract the rating of the second course
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		String courseRating2 = driver.findElement(By.xpath(
 				"//*[@id=\"main\"]/div/div/div[1]/div/div/div/div/div/div/ul/li[2]/div/div/a/div/div[2]/div[3]/div[1]/div[1]/div/span[1]"))
 				.getText();
-		System.out.println(courseRating2);
+		System.out.println("Course Rating - " + courseRating2);
 		Reporter.log("Course Rating - " + courseRating2);
-		hs.takeScreenshot("courseRating2");
-		System.out.println(courseRating2);
+		c_rating.add(1, courseRating2);
 
 		Set<String> handles2 = driver.getWindowHandles();
 
@@ -218,17 +222,18 @@ public class IdentifyCourses extends Base {
 
 				// Navigate to child window
 				driver.switchTo().window(childWindow2);
-
+				hs.takeScreenshot("SecondCoursePage");
 				// Extract the duration of the second course
-				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				implicitWait(30);
 				String courseDuration2 = driver
 						.findElement(By
 								.xpath("//*[@id='main']/div/div[2]/div/div/div/div[2]/div/div/div[5]/div[2]/div/span"))
 						.getText();
-				System.out.println(courseDuration2);
+				c_time.add(1, courseDuration2);
+				System.out.println("Course Duration - " + courseDuration2);
 				Reporter.log("Course Duration - " + courseDuration2);
 
-				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				implicitWait(30);
 				driver.close();
 			}
 		}
@@ -240,4 +245,16 @@ public class IdentifyCourses extends Base {
 
 	}
 
+	public void addCourseDetalis() throws IOException {
+
+		fo.printValues(0, 0, "Course Name", "Course Rating", 0);
+		fo.printValues(0, 2, "Course Duration", 0);
+		for (int i = 0; i < c_names.size(); i++) {
+
+			String rat = c_rating.get(i);
+			double rating = Double.parseDouble(rat);
+			fo.printValues(i + 1, 0, c_names.get(i), rating, 0);
+			fo.printValues(i + 1, 2, c_time.get(i), 0);
+		}
+	}
 }

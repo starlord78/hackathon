@@ -52,7 +52,7 @@ public class FormFillingDataProvider {
 					{ fName, lName, jobFunc, jobTitle, email, phoneNo, instituteName, instituteType, primaryDis,
 							country, "Select...", comments, "StateErr" },
 					{ fName, lName, jobFunc, jobTitle, email, phoneNo, instituteName, instituteType, primaryDis,
-							country, state, "", "FormSubmissionWithoutComments" } };
+							country, state, "", "CommentsErr" } };
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

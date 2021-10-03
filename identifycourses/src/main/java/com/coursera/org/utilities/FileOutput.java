@@ -1,6 +1,6 @@
 package com.coursera.org.utilities;
 
-import java.io.File;
+import java.io.File; 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -64,6 +64,68 @@ public class FileOutput {
 	 * @param sheetNumber
 	 * @throws IOException
 	 */
+	public void printValues(int row, int column, String value1, String value2, int sheetNumber) throws IOException {
+
+		// Opening the excel file and locating the correct sheet
+		setFileSource();
+		FileInputStream fis = new FileInputStream(source);
+		XSSFWorkbook wb = new XSSFWorkbook(fis);
+		XSSFSheet sh = wb.getSheetAt(sheetNumber);
+
+		// Identifying the proper cell, entering values into it and resizing that column
+
+		sh.createRow(row).createCell(column).setCellValue(value1);
+		sh.getRow(row).createCell(column + 1).setCellValue(value2);
+		sh.autoSizeColumn(column);
+
+		// Closing the file
+		FileOutputStream fos = new FileOutputStream(source);
+		wb.write(fos);
+		wb.close();
+
+	}
+
+	/**
+	 * This method prints the values values that we give into the excel. The path
+	 * excel is fixed.
+	 * 
+	 * @param row
+	 * @param column
+	 * @param value
+	 * @param sheetNumber
+	 * @throws IOException
+	 */
+	public void printValues(int row, int column, String value1, double value2, int sheetNumber) throws IOException {
+
+		// Opening the excel file and locating the correct sheet
+		setFileSource();
+		FileInputStream fis = new FileInputStream(source);
+		XSSFWorkbook wb = new XSSFWorkbook(fis);
+		XSSFSheet sh = wb.getSheetAt(sheetNumber);
+
+		// Identifying the proper cell, entering values into it and resizing that column
+
+		sh.createRow(row).createCell(column).setCellValue(value1);
+		sh.getRow(row).createCell(column + 1).setCellValue(value2);
+		sh.autoSizeColumn(column);
+
+		// Closing the file
+		FileOutputStream fos = new FileOutputStream(source);
+		wb.write(fos);
+		wb.close();
+
+	}
+
+	/**
+	 * This method prints the values values that we give into the excel. The path
+	 * excel is fixed.
+	 * 
+	 * @param row
+	 * @param column
+	 * @param value
+	 * @param sheetNumber
+	 * @throws IOException
+	 */
 	public void printValues(int row, int column, String value, int sheetNumber) throws IOException {
 
 		// Opening the excel file and locating the correct sheet
@@ -73,7 +135,7 @@ public class FileOutput {
 		XSSFSheet sh = wb.getSheetAt(sheetNumber);
 
 		// Identifying the proper cell, entering values into it and resizing that column
-		sh.createRow(row).createCell(column).setCellValue(value);
+		sh.getRow(row).createCell(column).setCellValue(value);
 		sh.autoSizeColumn(column);
 
 		// Closing the file

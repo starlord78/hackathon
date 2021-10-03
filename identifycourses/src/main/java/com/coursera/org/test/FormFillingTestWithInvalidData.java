@@ -1,10 +1,10 @@
 package com.coursera.org.test;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 import java.io.IOException;
 
-import org.testng.annotations.AfterGroups;
 import org.testng.annotations.Test;
 
 import com.coursera.org.base.Base;
@@ -18,9 +18,9 @@ public class FormFillingTestWithInvalidData extends Base {
 	FormFillingFunctionality form = new FormFillingFunctionality();
 
 	@Test(priority = 0, groups = "Regression Test")
-	public void locateForm() {
-
-		System.out.println("*****Regression Test started *****");
+	public void testLocateFormForRegressionTest() {
+		logger = report.createTest("Locating form for Regression Test",
+				"This test is locating form for Regression testing");
 		returnhome();
 		try {
 			Thread.sleep(2000);
@@ -35,10 +35,12 @@ public class FormFillingTestWithInvalidData extends Base {
 	}
 
 	@Test(priority = 1, groups = "Regression Test", dataProvider = "formData", dataProviderClass = FormFillingDataProvider.class)
-	public void fillInvalidValues(String f_Name, String l_Name, String job_Func, String job_Title, String work_Email,
-			String phone_No, String institute_Name, String institute_Type, String primary_Dis, String country,
-			String state, String textArea, String ssName) throws IOException, InterruptedException {
+	public void testPassingInvalidDataIntoForm(String f_Name, String l_Name, String job_Func, String job_Title,
+			String work_Email, String phone_No, String institute_Name, String institute_Type, String primary_Dis,
+			String country, String state, String textArea, String ssName) throws IOException, InterruptedException {
 
+		logger = report.createTest("Passing invalid details into the form",
+				"This test is for passing invalid details into the form for Regression testing");
 		form.fillFirst_name(f_Name);
 		Thread.sleep(1000);
 
@@ -90,15 +92,11 @@ public class FormFillingTestWithInvalidData extends Base {
 		}
 
 		System.out.println(ssName + " Completed");
+		assertTrue(true);
 
 		refresh();
 		scrollPage();
 
-	}
-
-	@AfterGroups(groups = "Regression Test")
-	public void resultStatements() {
-		System.out.println("***** Regression Test Completed *****");
 	}
 
 }

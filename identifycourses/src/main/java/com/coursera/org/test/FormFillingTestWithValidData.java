@@ -14,8 +14,9 @@ public class FormFillingTestWithValidData extends Base {
 	FormFillingFunctionality form = new FormFillingFunctionality();
 
 	@Test(priority = 9, groups = "Smoke Test")
-	public void locateForm() {
-		System.out.println("*****Form Filling Test Started*****");
+	public void testLocateFormForSmokeTest() {
+		logger = report.createTest("Locating form for Smoke Test", "This test is for loading form in For Product Page");
+		System.out.println("\n*****Form Filling Test Started*****");
 		returnhome();
 		try {
 			Thread.sleep(2000);
@@ -25,13 +26,15 @@ public class FormFillingTestWithValidData extends Base {
 		} catch (InterruptedException | IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Form loaded successfully");
+		System.out.println("\nForm loaded successfully");
 		scrollPage();
 
 	}
 
 	@Test(priority = 10, groups = "Smoke Test")
-	public void fillValidValues() {
+	public void testPassValidDetails() {
+		logger = report.createTest("Passing valid details into the form",
+				"This test is for passing valid values into the form");
 		try {
 			form.fillAllValues();
 			implicitWait(10);
@@ -41,6 +44,7 @@ public class FormFillingTestWithValidData extends Base {
 			e.printStackTrace();
 		}
 		System.out.println("Form filled successfully");
+		System.out.println("\n*****Form Filling Test Passed Successfully*****\n");
 	}
 
 }

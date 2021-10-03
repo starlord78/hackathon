@@ -28,7 +28,8 @@ public class FormFillingFunctionality extends Base {
 		hs.highlighttElements(productsLink);
 		action.moveToElement(productsLink).perform();
 
-		implicitWait(10000);
+		implicitWait(10);
+		Thread.sleep(3000);
 
 		scrollPage();
 		driver.switchTo().defaultContent();
@@ -36,7 +37,7 @@ public class FormFillingFunctionality extends Base {
 		hs.highlighttElements(forCampusLink);
 		forCampusLink.click();
 
-		implicitWait(2000);
+		implicitWait(2);
 	}
 
 	public void fillFirst_name(String f_Name) throws IOException, InterruptedException {

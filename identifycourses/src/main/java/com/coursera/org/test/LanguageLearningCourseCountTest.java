@@ -16,8 +16,10 @@ public class LanguageLearningCourseCountTest extends Base {
 	FileOutput fo = new FileOutput();
 
 	@Test(priority = 7, groups = "Smoke Test")
-	public void loadLanguageLearningPage() {
+	public void testLoadLanguageLearningPage() {
 		System.out.println("*****Language Learning Course Count Test Started*****");
+		logger = report.createTest("Searching Language Learning course",
+				"This test is for loading Language Learning Page");
 		try {
 			Thread.sleep(2000);
 			count.loadLanguageLearningPage();
@@ -29,7 +31,9 @@ public class LanguageLearningCourseCountTest extends Base {
 	}
 
 	@Test(priority = 8, groups = "Smoke Test")
-	public void applyLanguageFilter() {
+	public void testLanguageFilterAndPrintingValuesInExcel() {
+		logger = report.createTest("Applying Language Filter and printing values in Excel",
+				"This test is for applying language filter and adding values in the excel file");
 		try {
 			count.languageFilter();
 			boolean findLastRow = fo.findLastRow(1) > 0;
@@ -41,7 +45,9 @@ public class LanguageLearningCourseCountTest extends Base {
 	}
 
 	@Test(priority = 8, groups = "Smoke Test")
-	public void applyLevelFilter() {
+	public void testLevelFilterAndPrintingValuesInExcel() {
+		logger = report.createTest("Applying Level Filter and printing values in Excel",
+				"This test is for applying language filter and adding values in the excel file");
 		try {
 			count.levelFilter();
 			boolean findLastRow = fo.findLastRow(2) > 0;
@@ -49,6 +55,7 @@ public class LanguageLearningCourseCountTest extends Base {
 		} catch (InterruptedException | IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("*****Language Learning Course Count Test Passed Successfully*****");
+		System.out.println("\n*****Language Learning Course Count Test Passed Successfully*****");
 	}
+
 }

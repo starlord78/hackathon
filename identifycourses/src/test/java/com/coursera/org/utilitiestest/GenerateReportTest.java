@@ -1,27 +1,26 @@
 package com.coursera.org.utilitiestest;
 
-import java.io.IOException;
-
 import org.testng.annotations.Test;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-import com.coursera.org.utilities.GenerateReport;
+import com.coursera.org.base.Base;
 
-public class GenerateReportTest {
+public class GenerateReportTest extends Base {
 
 	@Test
-	public void generateHTMLReport() {
-		
-	GenerateReport gr = new GenerateReport();		
-	
-	try {
-		ExtentReports report;
-		report = gr.extentReport("Test_Report");
-		ExtentTest logger;
-		
-		logger = report.createTest("Sample Test");
+	public void generateHTMLReport1() {
+		logger = report.createTest("Sample Test 1");
+		logger.log(Status.PASS, "Test1");
+		logger.log(Status.PASS, "Test2");
+		logger.log(Status.FAIL, "Test3");
+		logger.log(Status.FAIL, "Test4");
+		logger.log(Status.INFO, "Test5");
+		logger.log(Status.INFO, "Test6");
+	}
+
+	@Test
+	public void generateHTMLReport2() {
+		logger = report.createTest("Sample Test 2");
 		logger.log(Status.PASS, "Test1");
 		logger.log(Status.PASS, "Test2");
 		logger.log(Status.FAIL, "Test3");
@@ -29,11 +28,7 @@ public class GenerateReportTest {
 		logger.log(Status.INFO, "Test5");
 		logger.log(Status.INFO, "Test6");
 		report.flush();
-	} catch (IOException e) {
-		e.printStackTrace();
+
 	}
-	
-	}
-	
-	
+
 }

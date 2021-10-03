@@ -52,6 +52,7 @@ public class LanguageLearningCoursesCount extends Base {
 		hs.highlighttElements(showAllOpt);
 		showAllOpt.click();
 
+		hs.takeScreenshot("LanguageCount");
 		List<WebElement> languages_names = driver
 				.findElements(By.xpath("//div[@class='c-modal-content']//div[@class='checkboxText']"));
 		List<WebElement> languages_count = driver
@@ -64,26 +65,34 @@ public class LanguageLearningCoursesCount extends Base {
 			languageNames.add(i, name);
 			i++;
 		}
+		languageNames.add(i, "Total Languages");
 
 		List<String> languageCount = new ArrayList<String>();
 		int j = 0;
+		int t_langcount = 0;
 		for (WebElement count : languages_count) {
 			String cnt = count.getText().replace("(", "").replace(")", "");
+			int cntt = Integer.parseInt(cnt);
+			t_langcount = t_langcount + cntt;
 			languageCount.add(j, cnt);
 			j++;
 		}
+		languageCount.add(j, Integer.toString(t_langcount));
 
+		fo.printValues(0, 0, "Languages", "Count", 1);
 		for (int k = 0; k < languageCount.size(); k++) {
 
 			int cnt = Integer.parseInt(languageCount.get(k));
-			fo.printValues(k, 0, languageNames.get(k), cnt, 1);
+			fo.printValues(k + 1, 0, languageNames.get(k), cnt, 1);
 		}
 
 		HashMap<String, String> map = convertListToString(languageNames, languageCount);
 		System.out.println("\nLanguage and its count");
+		System.out.println("======================");
 		for (Map.Entry<String, String> values : map.entrySet()) {
 			System.out.println(values.getKey() + "-" + values.getValue());
 		}
+		System.out.println(languageNames.get(50) + "-" + languageCount.get(50));
 
 	}
 
@@ -103,6 +112,7 @@ public class LanguageLearningCoursesCount extends Base {
 				"//*[@id='main']/div/div[2]/div/div[2]/div[2]/div/div[1]/div/span");
 		hs.highlighttElements(dropDownIcon);
 		dropDownIcon.click();
+		hs.takeScreenshot("LevelCount");
 
 		List<WebElement> level_names = driver.findElements(By.xpath("//div[@class='checkboxText']"));
 		List<WebElement> level_count = driver.findElements(By.xpath("//div[@class='filter-count']"));
@@ -115,21 +125,29 @@ public class LanguageLearningCoursesCount extends Base {
 			i++;
 		}
 
+		levelNames.add(i, "Total Languages");
+
 		List<String> levelCount = new ArrayList<String>();
 		int j = 0;
+		int t_lvlcount = 0;
 		for (WebElement count : level_count) {
 			String cnt = count.getText().replace("(", "").replace(")", "");
 			levelCount.add(j, cnt);
+			int cntt = Integer.parseInt(cnt);
+			t_lvlcount = t_lvlcount + cntt;
 			j++;
 		}
+		levelCount.add(j, Integer.toString(t_lvlcount));
 
+		fo.printValues(0, 0, "Levels", "Count", 2);
 		for (int k = 0; k < levelCount.size(); k++) {
 
 			int cnt = Integer.parseInt(levelCount.get(k));
-			fo.printValues(k, 0, levelNames.get(k), cnt, 2);
+			fo.printValues(k + 1, 0, levelNames.get(k), cnt, 2);
 		}
 
 		System.out.println("\nLevels and its count");
+		System.out.println("====================");
 		HashMap<String, String> map = convertListToString(levelNames, levelCount);
 		for (Map.Entry<String, String> values : map.entrySet()) {
 			System.out.println(values.getKey() + "-" + values.getValue());

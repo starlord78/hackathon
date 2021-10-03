@@ -2,6 +2,11 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
 
+	<listeners>
+		<listener
+			class-name="com.coursera.org.utilities.GenerateReport"></listener>
+	</listeners>
+
 	<test thread-count="1" name="Smoke Test">
 
 		<groups>
